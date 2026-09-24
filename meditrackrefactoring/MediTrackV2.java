@@ -4,13 +4,13 @@ package meditrackrefactoring;
 public class MediTrackV2 {
   private static final TemperatureClassification[] TEMPERATURE_CLASSIFICATIONS = {
       new TemperatureClassification("HIGH", 39.5),
-      new TemperatureClassification("MEDIUM", 37.5),
+      new TemperatureClassification("MODERATE", 37.5),
       new TemperatureClassification("LOW", 0),
   };
 
   public static String classifyTemperature(double temperatureC) {
     for (TemperatureClassification classification : TEMPERATURE_CLASSIFICATIONS) {
-      if (temperatureC >= classification.getThreshold()) {
+      if (temperatureC > classification.getThreshold()) {
         return classification.getName();
       }
     }
@@ -19,7 +19,7 @@ public class MediTrackV2 {
   }
 
   public static void printPatientResult(Patient patient, String resultClassification) {
-    System.out.printf("%s | %f | %s", patient.getName(), patient.getTemperatureC(), resultClassification);
+    System.out.printf("%s | %f | %s\n", patient.getName(), patient.getTemperatureC(), resultClassification);
   }
 
   public static void main(String[] args) {
@@ -34,6 +34,15 @@ public class MediTrackV2 {
 
       printPatientResult(patient, resultClassification);
     }
+
+    System.out.println("\nTest cases:");
+    System.out.println("37.4 -> " + classifyTemperature(37.4));
+    System.out.println("37.5 -> " + classifyTemperature(37.5));
+    System.out.println("38.9 -> " + classifyTemperature(38.9));
+    System.out.println("39.4 -> " + classifyTemperature(39.4));
+    System.out.println("39.5 -> " + classifyTemperature(39.5));
+    System.out.println("40.0 -> " + classifyTemperature(40.0));
+
   }
 
 }
