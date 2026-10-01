@@ -11,9 +11,20 @@ public class AdmissionV2 {
       new RiskScoreMultiplier<Number>(50, 15)
   };
 
-  private static int calculateRiskScore(Patient patient) {
+  public static int calculateRiskScore(Patient patient) {
     return RiskScoreMultiplier.firstMatchingScore(temperatureScoreMultiplier, patient.getTemperatureC())
         + RiskScoreMultiplier.firstMatchingScore(ageScoreMultiplier, patient.getAgeYears());
+  }
+
+  public static void admit(Patient patient) {
+    patient.validateInformation();
+
+    int riskScore = calculateRiskScore(patient);
+    String classification = PriorityClassification.classify(riskScore);
+
+    System.out.printf("%s | %s\n",
+        patient.getName(),
+        classification);
   }
 
   public static void main(String[] args) {
@@ -25,9 +36,7 @@ public class AdmissionV2 {
     };
 
     for (Patient patient : patients) {
-      System.out.printf("%s | %s\n",
-          patient.getName(),
-          PriorityClassification.classify(calculateRiskScore(patient)));
+      admit(patient);
     }
   }
 }

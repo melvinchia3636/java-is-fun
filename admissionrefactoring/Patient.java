@@ -5,15 +5,14 @@ public class Patient {
   private final double temperatureC;
   private final int ageYears;
 
-  Patient(String name, double temperatureC, int ageYears) {
+  public Patient(String name, double temperatureC, int ageYears) {
     this.name = name;
     this.temperatureC = temperatureC;
     this.ageYears = ageYears;
 
-    validateInput();
   }
 
-  private void validateInput() {
+  public void validateInformation() {
     if (name == null || name.isBlank()) {
       throw new IllegalArgumentException("Name must not be blank");
     }
