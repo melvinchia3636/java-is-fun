@@ -1,16 +1,16 @@
 package admissionrefactoring;
 
-public class ScoreClassification {
-  private static final ScoreClassification[] CLASSIFICATIONS = {
-      new ScoreClassification("URGENT", 70),
-      new ScoreClassification("MODERATE", 30),
-      new ScoreClassification("ROUTINE", 0),
+public class PriorityClassification {
+  private static final PriorityClassification[] CLASSIFICATIONS = {
+      new PriorityClassification("URGENT", 70),
+      new PriorityClassification("MODERATE", 30),
+      new PriorityClassification("ROUTINE", 0),
   };
 
   private final String name;
   private final int threshold;
 
-  ScoreClassification(String name, int threshold) {
+  PriorityClassification(String name, int threshold) {
     this.name = name;
     this.threshold = threshold;
   }
@@ -24,7 +24,7 @@ public class ScoreClassification {
   }
 
   public static String classify(int score) {
-    for (ScoreClassification classification : CLASSIFICATIONS) {
+    for (PriorityClassification classification : CLASSIFICATIONS) {
       if (score >= classification.getThreshold()) {
         return classification.getName();
       }

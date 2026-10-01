@@ -1,21 +1,19 @@
 package admissionrefactoring;
 
 public class AdmissionV2 {
-  private static final ScoreMultiplier<?>[] temperatureScoreMultiplier = {
-      new ScoreMultiplier<>(39.5, 50),
-      new ScoreMultiplier<>(37.5, 25),
+  private static final RiskScoreMultiplier<?>[] temperatureScoreMultiplier = {
+      new RiskScoreMultiplier<>(39.5, 50),
+      new RiskScoreMultiplier<>(37.5, 25),
   };
 
-  private static final ScoreMultiplier<?>[] ageScoreMultiplier = {
-      new ScoreMultiplier<>(65, 30),
-      new ScoreMultiplier<Number>(50, 15)
+  private static final RiskScoreMultiplier<?>[] ageScoreMultiplier = {
+      new RiskScoreMultiplier<>(65, 30),
+      new RiskScoreMultiplier<Number>(50, 15)
   };
 
-  public static String check(Patient patient) {
-    int score = ScoreMultiplier.firstMatchingScore(temperatureScoreMultiplier, patient.getTemperatureC())
-        + ScoreMultiplier.firstMatchingScore(ageScoreMultiplier, patient.getAge());
-
-    return patient.getName() + " | " + ScoreClassification.classify(score);
+  private static int calculateRiskScore(Patient patient) {
+    return RiskScoreMultiplier.firstMatchingScore(temperatureScoreMultiplier, patient.getTemperatureC())
+        + RiskScoreMultiplier.firstMatchingScore(ageScoreMultiplier, patient.getAgeYears());
   }
 
   public static void main(String[] args) {
@@ -27,7 +25,9 @@ public class AdmissionV2 {
     };
 
     for (Patient patient : patients) {
-      System.out.println(check(patient));
+      System.out.printf("%s | %s\n",
+          patient.getName(),
+          PriorityClassification.classify(calculateRiskScore(patient)));
     }
   }
 }

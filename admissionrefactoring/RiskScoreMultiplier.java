@@ -1,10 +1,10 @@
 package admissionrefactoring;
 
-public class ScoreMultiplier<T extends Number> {
+public class RiskScoreMultiplier<T extends Number> {
   private final T conditionThreshold;
   private final int scoreMultiplier;
 
-  public ScoreMultiplier(T conditionThreshold, int scoreMultiplier) {
+  public RiskScoreMultiplier(T conditionThreshold, int scoreMultiplier) {
     this.scoreMultiplier = scoreMultiplier;
     this.conditionThreshold = conditionThreshold;
   }
@@ -17,8 +17,8 @@ public class ScoreMultiplier<T extends Number> {
     return 0;
   }
 
-  public static int firstMatchingScore(ScoreMultiplier<?>[] scoreMultipliers, Number conditionValue) {
-    for (ScoreMultiplier<?> multiplier : scoreMultipliers) {
+  public static int firstMatchingScore(RiskScoreMultiplier<?>[] scoreMultipliers, Number conditionValue) {
+    for (RiskScoreMultiplier<?> multiplier : scoreMultipliers) {
       int score = multiplier.scoreFor(conditionValue);
 
       if (score != 0) {
